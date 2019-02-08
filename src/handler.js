@@ -20,16 +20,16 @@ const sendResponse = (request, response, status, type, content) => {
 };
 
 const getPage = (request, response) => {
-    response.writeHead(200, { 'Content-Type': 'text/html' });
-    response.write(index);
-    response.end();
-  };
-  
-  const getStyle = (request, response) => {
-    response.writeHead(200, { 'Content-Type': 'text/css' });
-    response.write(css);
-    response.end();
-  };
+  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.write(index);
+  response.end();
+};
+
+const getStyle = (request, response) => {
+  response.writeHead(200, { 'Content-Type': 'text/css' });
+  response.write(css);
+  response.end();
+};
 
 const getSuccess = (request, response) => {
   if (request.headers.accept === 'text/xml') {
@@ -44,15 +44,15 @@ const getSuccess = (request, response) => {
 const getBadRequest = (request, response, params) => {
   if (request.headers.accept === 'text/xml') {
     if (params.valid === 'true') {
-        sendResponse(request, response, 200, request.headers.accept, '<response><message>This request has the required parameters.</message></response>');
+      sendResponse(request, response, 200, request.headers.accept, '<response><message>This request has the required parameters.</message></response>');
     } else {
-        sendResponse(request, response, 400, request.headers.accept, '<response><message>Missing valid query parameter set to true.</message><id>Bad Request</id></response>');
+      sendResponse(request, response, 400, request.headers.accept, '<response><message>Missing valid query parameter set to true.</message><id>Bad Request</id></response>');
     }
   } else if (request.headers.accept === 'application/json') {
     if (params.valid === 'true') {
-        sendResponse(request, response, 200, request.headers.accept, { message: 'This request has the required parameters.' });
+      sendResponse(request, response, 200, request.headers.accept, { message: 'This request has the required parameters.' });
     } else {
-        sendResponse(request, response, 400, request.headers.accept, { message: 'Missing valid query parameter set to true.', id: 'Bad Request' });
+      sendResponse(request, response, 400, request.headers.accept, { message: 'Missing valid query parameter set to true.', id: 'Bad Request' });
     }
   } else if (params.valid === 'true') {
     sendResponse(request, response, 200, 'application/json', { message: 'This request has the required parameters.' });
@@ -64,15 +64,15 @@ const getBadRequest = (request, response, params) => {
 const getUnauthorized = (request, response, params) => {
   if (request.headers.accept === 'text/xml') {
     if (params.loggedIn === 'yes') {
-        sendResponse(request, response, 200, request.headers.accept, '<response><message>You have successfully viewed the content.</message></response>');
+      sendResponse(request, response, 200, request.headers.accept, '<response><message>You have successfully viewed the content.</message></response>');
     } else {
-        sendResponse(request, response, 401, request.headers.accept, '<response><message>Missing loggedIn query parameter set to yes.</message><id>Unauthorized</id></response>');
+      sendResponse(request, response, 401, request.headers.accept, '<response><message>Missing loggedIn query parameter set to yes.</message><id>Unauthorized</id></response>');
     }
   } else if (request.headers.accept === 'application/json') {
     if (params.loggedIn === 'yes') {
-        sendResponse(request, response, 200, request.headers.accept, { message: 'You have successfully viewed the content.' });
+      sendResponse(request, response, 200, request.headers.accept, { message: 'You have successfully viewed the content.' });
     } else {
-        sendResponse(request, response, 401, request.headers.accept, { message: 'Missing loggedIn query parameter set to yes.', id: 'Unauthorized' });
+      sendResponse(request, response, 401, request.headers.accept, { message: 'Missing loggedIn query parameter set to yes.', id: 'Unauthorized' });
     }
   } else if (params.loggedIn === 'yes') {
     sendResponse(request, response, 200, 'application/json', { message: 'You have successfully viewed the content.' });
